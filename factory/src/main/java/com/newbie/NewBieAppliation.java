@@ -2,6 +2,7 @@ package com.newbie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /*
  * @author Andy-J<br>
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @createDate 2019/8/3 22:07 <br>
  * @desc 主程序类
  */
+@EnableTransactionManagement//开启注解的事务管理
 @SpringBootApplication
 public class NewBieAppliation {
     public static void main(String[] args) {
