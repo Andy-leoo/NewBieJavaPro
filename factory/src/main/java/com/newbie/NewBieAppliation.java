@@ -1,5 +1,6 @@
 package com.newbie;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @desc 主程序类
  */
 @EnableTransactionManagement//开启注解的事务管理
+@MapperScan("com.newbie.factory.dao")
 @SpringBootApplication
 public class NewBieAppliation {
     public static void main(String[] args) {

@@ -46,11 +46,11 @@ public class DruidConfig {
         Map<String, String> initParam = new HashMap<>();
         //访问的用户名密码
         initParam.put(StatViewServlet.PARAM_NAME_USERNAME, "root");
-        initParam.put(StatViewServlet.PARAM_NAME_PASSWORD, "123");
+        initParam.put(StatViewServlet.PARAM_NAME_PASSWORD, "root");
         //允许访问的ip，默认所有ip访问
-        initParam.put(StatViewServlet.PARAM_NAME_ALLOW, "");
+        initParam.put(StatViewServlet.PARAM_NAME_ALLOW, "127.0.0.1");
         //禁止访问的ip
-        initParam.put(StatViewServlet.PARAM_NAME_DENY, "192.168.10.1");
+        initParam.put(StatViewServlet.PARAM_NAME_DENY, "");
         bean.setInitParameters(initParam);
         return bean;
     }
