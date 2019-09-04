@@ -13,8 +13,10 @@ import com.newbie.factory.mapper.CategoryMapper;
 import com.newbie.factory.mapper.ProductMapper;
 import com.newbie.factory.service.ICategoryService;
 import com.newbie.factory.service.IProductService;
+import com.newbie.factory.utils.DateTimeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +31,9 @@ public class ProductServiceImpl implements IProductService {
     private CategoryMapper categoryMapper;
     @Autowired
     private ICategoryService iCategoryService;
+
+    @Value("ftp.server.http.prefix")
+    private String ftpServerPrefix;
 
     @Override
     public ServerResponse saveOrUpdateProduct(Product product) {
@@ -60,7 +65,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ServerResponse setSaleStatus(Integer productId, Integer status) {
         if (productId == null || status == null){
-            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseEnum.ILLEGAL_ARGUMENT.getMsg());
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Product product = new Product();
         product.setId(productId);
@@ -75,7 +80,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ServerResponse getDetail(Integer productId) {
         if (productId == null){
-            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getMsg());
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Product product = productMapper.selectByPrimaryKey(productId);
         if (product != null){
@@ -127,7 +132,7 @@ public class ProductServiceImpl implements IProductService {
     public ServerResponse<ProductDetailVo> getProductDetail(Integer productId) {
 
         if (productId == null){
-            return ServerResponse.createByError(ResponseEnum.ILLEGAL_ARGUMENT.getCode(),ResponseEnum.ILLEGAL_ARGUMENT.getMsg());
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Product product = productMapper.selectByPrimaryKey(productId);
         if (product == null){
@@ -143,7 +148,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ServerResponse getProductByKeyWord(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy) {
         if (categoryId == null && StringUtils.isBlank(keyword)){
-            return ServerResponse.createByErrorCodeMessage(ResponseEnum.ILLEGAL_ARGUMENT.getCode(),ResponseEnum.ILLEGAL_ARGUMENT.getMsg());
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         List<Integer> categoryList = new ArrayList<>();
 
@@ -198,7 +203,7 @@ public class ProductServiceImpl implements IProductService {
         productDetailVo.setStatus(product.getStatus());
         //创建
 //        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix" , "http://img.happymmall.com/"));
-        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix" , "C:/ftpfile/img/"));
+        productDetailVo.setImageHost(ftpServerPrefix);
 
         Category category = categoryMapper.selectByPrimaryKey(product.getId());
         if (category == null){
@@ -221,7 +226,7 @@ public class ProductServiceImpl implements IProductService {
         productListVo.setStatus(product.getStatus());
         productListVo.setSubtitle(product.getSubtitle());
 //        productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix" , "http://img.happymmall.com/"));
-        productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix" , "C:/ftpfile/img/"));
+        productListVo.setImageHost(ftpServerPrefix);
         return productListVo;
     }
 

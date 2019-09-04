@@ -55,12 +55,47 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.10</version>
         </dependency>
-        <!--工具类-->
+        <!--//工具类  和 数据结构-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version> 27.0.1-jre</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
         </dependency>
+        <!--//集合-->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <!-- ftpclient -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <!-- file upload -->
+        <!--//文件-->
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
         <!--logback 日志-->
 <!--        <dependency>-->
 <!--            <groupId>ch.qos.logback</groupId>-->

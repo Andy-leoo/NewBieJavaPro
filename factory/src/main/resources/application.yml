@@ -50,5 +50,15 @@ pagehelper:
 #logging:
 #  config: classpath:logback-spring.xml
 
+# 密码盐值
 passwordSalt: andysdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,
+#ftp前缀
+ftp:
+  user: andy-j
+  password: andy-j
+  server:
+    ip: 127.0.0.1
+    http:
+      prefix: C:/ftpfile/img/
+
 

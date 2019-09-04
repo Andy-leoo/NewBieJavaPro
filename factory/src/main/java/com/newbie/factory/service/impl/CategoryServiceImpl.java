@@ -19,10 +19,10 @@ import java.util.Set;
  * @version 1.0<br>
  * @taskId: <br>
  * @createDate 2019/08/29 10:34 <br>
- * @TODO 该类做什么？？
+ * @ 类别管理
  * @see com.newbie.factory.service.impl <br>
  */
-public class CategoryService implements ICategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;

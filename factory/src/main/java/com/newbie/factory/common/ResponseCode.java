@@ -13,7 +13,8 @@ package com.newbie.factory.common;
 public enum ResponseCode {
     ERROR(0,"ERROR"),
     SUCCESS(1,"SUCCESS"),
-    NEED_LOGIN(10,"需要登入")
+    NEED_LOGIN(10,"需要登入"),
+    ILLEGAL_ARGUMENT(2,"非法参数")
     ;
     private final int code;
     private final String desc;
