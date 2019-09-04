@@ -54,7 +54,7 @@
 
         <!-- 对应的Mapper接口类文件 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.newbie.factory.dao" targetProject="src/main/java">
+                             targetPackage="com.newbie.factory.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
@@ -62,7 +62,8 @@
         <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
                    是否生成 example类   -->
-        <table tableName="mmall_order" domainObjectName="Order"
+
+        <table tableName="mmall_product" domainObjectName="Product"
                schema="factory"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"

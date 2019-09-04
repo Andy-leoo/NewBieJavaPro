@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8080
 # Mybatis相关配置
 mybatis:
   #核心配置文件路径
@@ -34,6 +34,8 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 25
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  mvc:
+    static-path-pattern: /resources/**
 # 分页插件
 pagehelper:
   helper-dialect: mysql
@@ -41,3 +43,12 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
   page-size-zero: true
+
+# ================================================
+#                   日志配置
+# ================================================
+#logging:
+#  config: classpath:logback-spring.xml
+
+passwordSalt: andysdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,
+

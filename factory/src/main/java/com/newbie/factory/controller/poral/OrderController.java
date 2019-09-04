@@ -1,13 +1,11 @@
-package com.newbie.factory.contorller;
+package com.newbie.factory.controller.poral;
 
 import com.github.pagehelper.PageInfo;
 import com.newbie.factory.bean.Order;
-import com.newbie.factory.service.OrderService;
+import com.newbie.factory.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * <Description> <br>
@@ -17,16 +15,22 @@ import java.util.List;
  * @taskId: <br>
  * @createDate 2019/08/09 9:52 <br>
  * @ 订单 控制类
- * @see com.newbie.factory.contorller <br>
+ * @see com.newbie.factory.controller <br>
  */
 @RestController
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderServiceImpl;
 
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/8/27 15:04 <br>
+     * @desc 测试 订单分页列表
+     */
     @RequestMapping("/orderListPage")
     public PageInfo<Order> findByPage(int page , int pageSize){
-        return orderService.findByPageOrder(page,pageSize);
+        return orderServiceImpl.findByPageOrder(page,pageSize);
     }
 }

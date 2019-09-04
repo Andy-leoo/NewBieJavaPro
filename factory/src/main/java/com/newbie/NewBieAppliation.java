@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @desc 主程序类
  */
 @EnableTransactionManagement//开启注解的事务管理
-@MapperScan("com.newbie.factory.dao")
+@MapperScan("com.newbie.factory.mapper")
 @SpringBootApplication
 public class NewBieAppliation {
     public static void main(String[] args) {

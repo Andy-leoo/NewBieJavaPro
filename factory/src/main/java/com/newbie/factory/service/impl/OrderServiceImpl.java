@@ -1,15 +1,15 @@
-package com.newbie.factory.service;
+package com.newbie.factory.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newbie.factory.bean.Order;
-import com.newbie.factory.dao.OrderMapper;
+import com.newbie.factory.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * <Description> <br>
  *
  * @author Andy-J<br>
  * @version 1.0<br>
@@ -18,7 +18,8 @@ import java.util.List;
  * @ 订单 业务处理
  * @see com.newbie.factory.service <br>
  */
-public class OrderService {
+@Service
+public class OrderServiceImpl {
 
     @Autowired
     private OrderMapper orderMapper;

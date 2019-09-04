@@ -1,4 +1,4 @@
-package com.newbie.factory.dao;
+package com.newbie.factory.mapper;
 
 import com.newbie.factory.bean.OrderItem;
 
