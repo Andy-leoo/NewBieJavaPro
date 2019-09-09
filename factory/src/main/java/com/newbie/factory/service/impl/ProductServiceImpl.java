@@ -202,7 +202,6 @@ public class ProductServiceImpl implements IProductService {
         productDetailVo.setStock(product.getStock());
         productDetailVo.setStatus(product.getStatus());
         //创建
-//        productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix" , "http://img.happymmall.com/"));
         productDetailVo.setImageHost(ftpServerPrefix);
 
         Category category = categoryMapper.selectByPrimaryKey(product.getId());

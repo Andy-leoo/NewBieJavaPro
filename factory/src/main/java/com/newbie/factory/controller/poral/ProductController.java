@@ -1,6 +1,8 @@
 package com.newbie.factory.controller.poral;
 
 import com.newbie.factory.common.ServerResponse;
+import com.newbie.factory.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+
+    @Autowired
+    private IProductService productService;
 
     @RequestMapping("/list")
     public ServerResponse list(@RequestParam(value = "categoryId" , required = false) Integer categoryId,

@@ -63,7 +63,7 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
                    是否生成 example类   -->
 
-        <table tableName="mmall_product" domainObjectName="Product"
+        <table tableName="mmall_shipping" domainObjectName="Shipping"
                schema="factory"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"

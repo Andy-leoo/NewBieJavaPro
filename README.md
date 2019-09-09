@@ -12,3 +12,4 @@ v2.0 会加入spring cloud 将v1.0改造。
 6. category分类后端接口实现
 7. product产品前后端接口实现
 8. 安装ftp服务器，配置工具类 金额util
+9. shipping地址管理模块
