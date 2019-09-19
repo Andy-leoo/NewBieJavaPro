@@ -1,11 +1,10 @@
 package com.newbie.factory.utils;
 
-import java.time.format.DateTimeFormatter;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import java.util.Date;
-
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class DateTimeUtil {
 
@@ -18,7 +17,7 @@ public class DateTimeUtil {
 
     public static Date strToDate(String str , String formatStr){
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(formatStr);
-        DateTimeLiteralExpression.DateTime dateTime = dateTimeFormatter.parseDateTime(str);
+        DateTime dateTime = dateTimeFormatter.parseDateTime(str);
         return dateTime.toDate();
     }
 

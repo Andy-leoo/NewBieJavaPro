@@ -1,9 +1,10 @@
 package com.newbie.factory.common;
 
-import org.apache.ibatis.mapping.CacheBuilder;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cglib.core.internal.LoadingCache;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +18,7 @@ public class TokenCache {
 
     public static final String TOKEN_PREFIX = "token_";
 
-    private static LoadingCache<String , String> localCache = CacheBuilder.newBuilder()
+    private static LoadingCache<String, String> localCache = CacheBuilder.newBuilder()
             .initialCapacity(1000)// 设置缓存初始化容量
             .maximumSize(10000)//缓存最大容量
             .expireAfterAccess(12,TimeUnit.HOURS)//有效期
