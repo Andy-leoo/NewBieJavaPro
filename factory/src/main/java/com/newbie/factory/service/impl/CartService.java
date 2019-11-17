@@ -1,5 +1,6 @@
 package com.newbie.factory.service.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.newbie.factory.bean.Cart;
 import com.newbie.factory.bean.Product;
@@ -18,8 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,8 +42,9 @@ public class CartService implements ICartService {
     private String imageHost;
 
     @Override
-    public ServerResponse list(Long id) {
-        return null;
+    public ServerResponse list(Long userId) {
+        CartVo cartVo = this.getCartVoLimit(userId);
+        return ServerResponse.createBySuccess(cartVo);
     }
 
     @Override
@@ -71,12 +71,47 @@ public class CartService implements ICartService {
             cartMapper.updateByPrimaryKeySelective(cart);
         }
         //库存数量校验联动。
-        CartVo cartVo = this.getCartVoLimit(userId);
-
-        return ServerResponse.createBySuccess(cartVo);
+        return this.list(userId);
     }
 
+    @Override
+    public ServerResponse<CartVo> update(Long userId, Integer productId, Integer count) {
+        if(productId == null || count == null){
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),
+                                                ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        //1. 从数据库中查询 是否有数据  根据用户id  产品id
+        Cart cart = cartMapper.selectCartByUserIdAndProductId(userId,productId);
+        if (cart != null){
+            cart.setQuantity(count);
+        }
+        cartMapper.updateByPrimaryKeySelective(cart);
+        return this.list(userId);
+    }
 
+    @Override
+    public ServerResponse<CartVo> deleteProduct(Long userId, String productIds) {
+        // productIds  根据，分割而成的 产品id 串
+        //使用谷歌的 guava 的方法
+        List<String> productIdList = Splitter.on(",").splitToList(productIds);
+        if (CollectionUtils.isEmpty(productIdList)){
+            return ServerResponse.createByError(ResponseCode.ILLEGAL_ARGUMENT.getCode(),
+                                                ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        cartMapper.deleteByProducts(userId , productIds);
+        return this.list(userId);
+    }
+
+    @Override
+    public ServerResponse<CartVo> selectOrUnSelect(Long userId, Integer productId,int checked) {
+        cartMapper.checkedOrUncheckedProduct(userId,productId,checked);
+        return this.list(userId);
+    }
+
+    @Override
+    public ServerResponse<Integer> getCartProductCount(Long userId) {
+        return ServerResponse.createBySuccess(cartMapper.selectCartProductCount(userId));
+    }
 
 
     private CartVo getCartVoLimit(Long userId){
