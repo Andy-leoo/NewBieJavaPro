@@ -1,10 +1,13 @@
 package com.newbie.factory.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.commons.lang3.StringUtils;
 
 public class DateTimeUtil {
 
@@ -43,4 +46,13 @@ public class DateTimeUtil {
         return dateTime.toString(STANDARO_FORMAT);
     }
 
+
+    public static void main(String[] args) throws ParseException {
+
+        String old = "2019-04-27 20:59:31";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        df.setLenient(false);
+        Date parse = df.parse(old);
+        System.out.println(parse);
+    }
 }
