@@ -12,7 +12,7 @@ spring:
     # 数据源基本配置
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/factory?serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/factory?serverTimezone:GMT%2B8
     # 8.x版本驱动包，要使用以下类作为驱动类
     driver-class-name: com.mysql.jdbc.Driver
     # 指定 Druid 数据源
@@ -33,7 +33,7 @@ spring:
     filters: stat,wall,logback
     maxPoolPreparedStatementPerConnectionSize: 25
     useGlobalDataSourceStat: true
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    connectionProperties: druid.stat.mergeSql:true;druid.stat.slowSqlMillis:500
   mvc:
     static-path-pattern: /resources/**
 # 分页插件
@@ -41,12 +41,12 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
-  params: count=countSql
+  params: count:countSql
   page-size-zero: true
 
-# ================================================
+# ::::::::::::::::::::::::::::::::::::::::::::::::
 #                   日志配置
-# ================================================
+# ::::::::::::::::::::::::::::::::::::::::::::::::
 #logging:
 #  config: classpath:logback-spring.xml
 
@@ -61,4 +61,11 @@ ftp:
     http:
       prefix: C:/ftpfile/img/
 
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::
+#                   支付宝配置
+# ::::::::::::::::::::::::::::::::::::::::::::::::
+notifyurl: http://www.newbie.com/order/alipay_callback.do
+#SHA256withRsa对应支付宝公钥
+alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAszsqtWATBp9LuVgYjKVjZEYl6uT1LWfSe3tXxhBSOFPy4uavOdPtkOL0ig06TVnYA55zoM57sTn7rDBIgvb80groTxEg2ocULlT5vrMVlAOpNFcXNYjOlILz5IK86nLTXSRihXYTh1LeTD555zz/hqDBQHL3EEA/JDy450dNz1nEGs34GkO8qDnlfjtbiwC08VehqlwpssCK4U4Ti0SVZ0F1P1aFs+QF8iR3NdclEPObtKzJhkYbTfNJFOBbKXCbsxjxTpztycEsxVoWg0xdewUH6zyKVY8kMqyobeGbqLSgavOZuJkiof8nbat7VJ+AmXNZbyp5b6gCfX58wnAg5QIDAQAB
 
