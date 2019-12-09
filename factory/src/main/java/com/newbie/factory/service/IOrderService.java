@@ -1,6 +1,7 @@
 package com.newbie.factory.service;
 
 import com.newbie.factory.common.ServerResponse;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 
@@ -10,4 +11,5 @@ public interface IOrderService {
 
     ServerResponse checkAliCallBack(HashMap<String, String> params);
 
+    ServerResponse createOrder(@Param("userId") Long id,@Param("shippingId") Integer shippingId);
 }

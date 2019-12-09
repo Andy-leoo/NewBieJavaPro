@@ -10,10 +10,7 @@ import com.newbie.factory.common.ResponseCode;
 import com.newbie.factory.common.ServerResponse;
 import com.newbie.factory.service.IOrderService;
 import com.newbie.factory.service.IPayService;
-import com.newbie.factory.service.impl.OrderService;
-import com.newbie.factory.service.impl.PayServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +43,28 @@ public class OrderController {
     private IPayService iPayService;
     @Value("alipay_public_key")
     private String alipayPublicKey;
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/11/29 17:27 <br>
+     * @desc 创建订单
+     */
+    @RequestMapping("/create")
+    public ServerResponse create(HttpSession session, Integer shippingId){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.createOrder(user.getId() , shippingId);
+    }
+
+
+
+
+
+
+
 
     /**
      * @author Andy-J<br>

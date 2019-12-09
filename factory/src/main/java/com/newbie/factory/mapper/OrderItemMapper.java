@@ -19,4 +19,6 @@ public interface OrderItemMapper {
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
+
+    void batchInsert(List<OrderItem> orderItemList);
 }

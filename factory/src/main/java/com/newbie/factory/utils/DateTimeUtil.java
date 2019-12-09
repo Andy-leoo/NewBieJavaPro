@@ -46,13 +46,21 @@ public class DateTimeUtil {
         return dateTime.toString(STANDARO_FORMAT);
     }
 
+    public static Date getDate(){
+        DateTime dateTime = new DateTime(new Date());
+        return dateTime.toDate();
+    }
+
 
     public static void main(String[] args) throws ParseException {
 
-        String old = "2019-04-27 20:59:31";
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        df.setLenient(false);
-        Date parse = df.parse(old);
-        System.out.println(parse);
+//        String old = "2019-04-27 20:59:31";
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////        df.setLenient(false);
+//        Date parse = df.parse(old);
+//        System.out.println(parse);
+
+        Date date = getDate();
+        System.out.println(date);
     }
 }

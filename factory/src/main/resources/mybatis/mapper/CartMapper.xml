@@ -270,4 +270,11 @@
     select IFNULL(sum(quantity),0) from mmall_cart where user_id = #{userId};
   </select>
 
+  <select id="selectCartByCheckAndUseId" resultType="List" parameterType="Long">
+    select
+    <include refid="Base_Column_List"/>
+    from mmall_cart
+    where user_id = #{userId} and checked = 1
+  </select>
+
 </mapper>

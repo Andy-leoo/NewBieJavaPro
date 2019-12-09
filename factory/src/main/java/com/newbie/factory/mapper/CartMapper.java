@@ -30,4 +30,6 @@ public interface CartMapper {
 
     // 使用函数计数  sum 如果返回空 ，使用 int 基本类型接不到值，要么使用integer接，要么再sql中处理
     int selectCartProductCount(@Param("userId") Long userId);
+
+    List<Cart> selectCartByCheckAndUseId(Long userId);
 }

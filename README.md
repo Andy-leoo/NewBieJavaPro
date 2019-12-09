@@ -7,7 +7,7 @@ v2.0 会加入spring cloud 将v1.0改造。
 1. 整合Druid
 2. 整合mybatis
 3. 整合mybatis-三剑客
-4. 开发 通用数据端相应对象
+4. 开发 通用数据端响应对象
 商城
 5. user用户前后端 接口实现
 6. category分类后端接口实现
