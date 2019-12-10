@@ -1,8 +1,14 @@
 package com.newbie.factory.service.impl;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.newbie.factory.bean.*;
+import com.newbie.factory.bean.vo.OrderItemVo;
+import com.newbie.factory.bean.vo.OrderProductVo;
 import com.newbie.factory.bean.vo.OrderVo;
+import com.newbie.factory.bean.vo.ShippingVo;
 import com.newbie.factory.common.Const;
 import com.newbie.factory.common.ServerResponse;
 import com.newbie.factory.mapper.*;
@@ -12,7 +18,9 @@ import com.newbie.factory.utils.DateTimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -43,6 +51,11 @@ public class OrderServiceImpl implements IOrderService {
     private ProductMapper productMapper;
     @Autowired
     private OrderItemMapper orderItemMapper;
+    @Autowired
+    private ShippingMapper shippingMapper;
+
+    @Value("ftp.server.http.prefix")
+    private String ftpHost;
 
     @Override
     public ServerResponse queryOrderPayStatus(Long orderNo, Long userId) {
@@ -133,11 +146,120 @@ public class OrderServiceImpl implements IOrderService {
     /**
      * @author Andy-J<br>
      * @version 1.0<br>
+     * @createDate 2019/12/10 15:38 <br>
+     * @desc 获取订单的商品信息
+     */
+    @Override
+    public ServerResponse getOrderCartProduct(Long userId) {
+        OrderProductVo orderProductVo = new OrderProductVo();
+
+        //拿出 购物车中的 商品
+        List<Cart> cartList = cartMapper.selectCartByCheckAndUseId(userId);
+        ServerResponse serverResponse = this.getCartItemList(userId,cartList);
+        if (!serverResponse.isSuccess()) {
+            return serverResponse;
+        }
+        List<OrderItem> orderItemList = (List<OrderItem>) serverResponse.getData();
+        //放进 vo
+        List<OrderItemVo> orderItemVos = Lists.newArrayList();
+
+        BigDecimal payment = new BigDecimal("0");
+        for (OrderItem orderItem :orderItemList){
+            payment = BigDecimalUtil.add(payment.doubleValue(),orderItem.getTotalPrice().doubleValue());
+            orderItemVos.add(assembleOrderItemVo(orderItem));
+        }
+
+        orderProductVo.setOrderItemVoList(orderItemVos);
+        orderProductVo.setImageHost(ftpHost);
+        orderProductVo.setProductTotalPrice(payment);
+
+        return ServerResponse.createBySuccess(orderProductVo);
+    }
+
+    @Override
+    public ServerResponse getOrderList(Long userId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Order> orderList = orderMapper.selectByUserId(userId);
+        //根据
+        List<OrderVo> orderVos = assembleOrderVoList(orderList,userId);
+
+        return null;
+    }
+
+
+    private List<OrderVo> assembleOrderVoList(List<Order> orderList, Long userId) {
+
+        return null;
+    }
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
      * @createDate 2019/12/4 17:11 <br>
-     * @desc 封装参数
+     * @desc 封装 订单 参数
      */
     private OrderVo assembleOrderVo(Order order, List<OrderItem> orderItemList) {
-        return null;
+        //包装order vo类
+        OrderVo orderVo = new OrderVo();
+        orderVo.setOrderNo(order.getOrderNo());
+        orderVo.setPayment(order.getPayment());
+
+        orderVo.setPaymentType(order.getPaymentType());
+        orderVo.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
+
+        orderVo.setPostage(order.getPostage());
+
+        orderVo.setStatus(order.getStatus());
+        orderVo.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
+
+        orderVo.setShippingId(order.getShippingId());
+        Shipping shipping = shippingMapper.selectByPrimaryKey(order.getShippingId());
+        if (shipping!=null) {
+            orderVo.setReceiverName(shipping.getReceiverName());
+            orderVo.setShippingVo(assembleShippingVo(shipping));
+        }
+
+        orderVo.setPaymentTime(DateTimeUtil.dateToStr(order.getPaymentTime()));
+        orderVo.setSendTime(DateTimeUtil.dateToStr(order.getSendTime()));
+        orderVo.setEndTime(DateTimeUtil.dateToStr(order.getEndTime()));
+        orderVo.setCreateTime(DateTimeUtil.dateToStr(order.getCreateTime()));
+        orderVo.setCloseTime(DateTimeUtil.dateToStr(order.getCloseTime()));
+
+        orderVo.setImageHost(ftpHost);
+
+        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        for (OrderItem orderItem: orderItemList) {
+            OrderItemVo orderItemVo = assembleOrderItemVo(orderItem);
+            orderItemVoList.add(orderItemVo);
+        }
+
+        orderVo.setOrderItemVoList(orderItemVoList);
+        return orderVo;
+    }
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/10 15:26 <br>
+     * @desc 封装订单中的产品vo
+     */
+    private OrderItemVo assembleOrderItemVo(OrderItem orderItem) {
+        OrderItemVo orderItemVo = new OrderItemVo();
+        BeanUtils.copyProperties(orderItem,orderItemVo);
+        return orderItemVo;
+    }
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/10 15:14 <br>
+     * @desc 封装 shipping vo 参数  收货地址
+     */
+    private ShippingVo assembleShippingVo(Shipping shipping) {
+        ShippingVo shippingVo = new ShippingVo();
+        //bean 值复制
+        BeanUtils.copyProperties(shipping,shippingVo);
+        return shippingVo;
     }
 
     /**

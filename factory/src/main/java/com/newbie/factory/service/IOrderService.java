@@ -12,4 +12,8 @@ public interface IOrderService {
     ServerResponse checkAliCallBack(HashMap<String, String> params);
 
     ServerResponse createOrder(@Param("userId") Long id,@Param("shippingId") Integer shippingId);
+
+    ServerResponse getOrderCartProduct(Long userId);
+
+    ServerResponse getOrderList(Long userId, Integer pageNum, Integer pageSize);
 }
