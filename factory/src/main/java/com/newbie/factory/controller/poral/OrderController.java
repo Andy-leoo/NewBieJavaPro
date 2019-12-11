@@ -91,7 +91,20 @@ public class OrderController {
         return iOrderService.getOrderList(user.getId(),pageNum,pageSize);
     }
 
-
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 9:33 <br>
+     * @desc 订单详情
+     */
+    @RequestMapping("/detail")
+    public ServerResponse detail(HttpSession session, Long orderNo){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if(user ==null){
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderDetail(user.getId(),orderNo);
+    }
 
 
 

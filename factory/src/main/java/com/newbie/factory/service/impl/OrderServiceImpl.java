@@ -176,20 +176,61 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(orderProductVo);
     }
 
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 9:21 <br>
+     * @desc 查询订单列表  分页
+     */
     @Override
     public ServerResponse getOrderList(Long userId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectByUserId(userId);
         //根据
         List<OrderVo> orderVos = assembleOrderVoList(orderList,userId);
+        PageInfo pageResult =new PageInfo(orderList);
+        pageResult.setList(orderVos);
+        return ServerResponse.createBySuccess(pageResult);
+    }
 
-        return null;
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 9:40 <br>
+     * @desc 获取用户订单详情
+     */
+    @Override
+    public ServerResponse getOrderDetail(Long userId, Long orderNo) {
+        Order order = orderMapper.selectByUserIdAndOrderNo(userId, orderNo);
+        if (order!=null) {
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNoAndUserId(orderNo, userId);
+            OrderVo orderVo = assembleOrderVo(order, orderItemList);
+            return ServerResponse.createBySuccess(orderVo);
+        }
+        return ServerResponse.createByErrorMsg("没有找到该订单！");
     }
 
 
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 9:04 <br>
+     * @desc 根据
+     */
     private List<OrderVo> assembleOrderVoList(List<Order> orderList, Long userId) {
-
-        return null;
+        //查询订单下的 商品
+        List<OrderVo> orderVos = Lists.newArrayList();
+        for (Order order : orderList) {
+            List<OrderItem> orderItemList = Lists.newArrayList();
+            if (userId==null) {
+                orderItemList = orderItemMapper.selectByOrderNo();
+            }else {
+                orderItemList = orderItemMapper.selectByOrderNoAndUserId(order.getOrderNo(),userId);
+            }
+            OrderVo orderVo = assembleOrderVo(order, orderItemList);
+            orderVos.add(orderVo);
+        }
+        return orderVos;
     }
 
     /**
