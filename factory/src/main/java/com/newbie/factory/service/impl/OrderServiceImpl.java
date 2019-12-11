@@ -210,6 +210,24 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createByErrorMsg("没有找到该订单！");
     }
 
+    /************************               backend                           *************
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 10:07 <br>
+     * @desc
+     */
+    @Override
+    public ServerResponse getManageOrderList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Order> orderList = orderMapper.selectOrderAll();
+        List<OrderVo> orderVos = assembleOrderVoList(orderList, null);
+
+        PageInfo pageInfo = new PageInfo(orderList);
+        pageInfo.setList(orderVos);
+
+        return ServerResponse.createBySuccess(pageInfo);
+    }
+
 
     /**
      * @author Andy-J<br>
