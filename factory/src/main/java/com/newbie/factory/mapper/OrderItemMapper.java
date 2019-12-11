@@ -22,6 +22,6 @@ public interface OrderItemMapper {
 
     void batchInsert(List<OrderItem> orderItemList);
 
-    List<OrderItem> selectByOrderNo();
+    List<OrderItem> selectByOrderNo(Long orderNo);
 
 }

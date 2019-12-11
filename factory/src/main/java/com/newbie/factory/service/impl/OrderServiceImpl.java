@@ -228,6 +228,34 @@ public class OrderServiceImpl implements IOrderService {
         return ServerResponse.createBySuccess(pageInfo);
     }
 
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 10:40 <br>
+     * @desc 按订单号查询
+     */
+    @Override
+    public ServerResponse searchManageOrder(Long orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (order!=null) {
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+            OrderVo orderVo = assembleOrderVo(order, orderItemList);
+            return ServerResponse.createBySuccess(orderVo);
+        }
+        return ServerResponse.createByErrorMsg("订单不存在！");
+    }
+
+    @Override
+    public ServerResponse getManageOrderDetail(Long orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        if (order!=null) {
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+            OrderVo orderVo = assembleOrderVo(order, orderItemList);
+            return ServerResponse.createBySuccess(orderVo);
+        }
+        return ServerResponse.createByErrorMsg("订单不存在！");
+    }
+
 
     /**
      * @author Andy-J<br>
@@ -241,7 +269,7 @@ public class OrderServiceImpl implements IOrderService {
         for (Order order : orderList) {
             List<OrderItem> orderItemList = Lists.newArrayList();
             if (userId==null) {
-                orderItemList = orderItemMapper.selectByOrderNo();
+                orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
             }else {
                 orderItemList = orderItemMapper.selectByOrderNoAndUserId(order.getOrderNo(),userId);
             }

@@ -20,4 +20,8 @@ public interface IOrderService {
     ServerResponse getOrderDetail(@Param("userId") Long userId,@Param("orderNo") Long orderNo);
 
     ServerResponse getManageOrderList(Integer pageNum, Integer pageSize);
+
+    ServerResponse searchManageOrder(Long orderNo);
+
+    ServerResponse getManageOrderDetail(Long orderNo);
 }

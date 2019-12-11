@@ -53,4 +53,40 @@ public class OrderManageController {
         }
         return ServerResponse.createByErrorMsg("无权限操作！");
     }
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 10:37 <br>
+     * @desc 按订单号查询
+     */
+    public ServerResponse search(HttpSession session,Long orderNo){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登入，请登入！");
+        }
+        //校验是否为管理员
+        if (userService.checkAdminRole(user).isSuccess()) {
+            return orderService.searchManageOrder(orderNo);
+        }
+        return ServerResponse.createByErrorMsg("无权限操作！");
+    }
+
+    /**
+     * @author Andy-J<br>
+     * @version 1.0<br>
+     * @createDate 2019/12/11 10:49 <br>
+     * @desc 查询订单详情
+     */
+    public ServerResponse detail(HttpSession session,Long orderNo){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode(), "用户未登入，请登入！");
+        }
+        //校验是否为管理员
+        if (userService.checkAdminRole(user).isSuccess()) {
+            return orderService.getManageOrderDetail(orderNo);
+        }
+        return ServerResponse.createByErrorMsg("无权限操作！");
+    }
 }
