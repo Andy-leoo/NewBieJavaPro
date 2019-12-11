@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newbie.factory.bean.User;
 import com.newbie.factory.bean.UserBasicInf;
-import com.newbie.factory.bean.vo.UserVO;
+import com.newbie.factory.bean.vo.UserVo;
 import com.newbie.factory.common.Const;
 import com.newbie.factory.common.ServerResponse;
 import com.newbie.factory.common.TokenCache;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<String> register(UserVO userVO) {
+    public ServerResponse<String> register(UserVo userVO) {
         //检测 用户名
         ServerResponse<String> validResponse = checkValid(userVO.getUsername(), Const.USERNAME);
         if (!validResponse.isSuccess()){
@@ -190,7 +190,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse updateInformation(UserVO userVO) {
+    public ServerResponse updateInformation(UserVo userVO) {
         //username 不能够被更新
         //email 也要进行一个校验，校验其他有没有使用到 email
         int count = userBasicInfMapper.checkEmailByUserId(userVO.getEmail() , userVO.getId());
@@ -215,8 +215,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<UserVO> getInformation(Long id) {
-        UserVO userVO = new UserVO();
+    public ServerResponse<UserVo> getInformation(Long id) {
+        UserVo userVO = new UserVo();
         User user = userMapper.selectByPrimaryKey(id);
         if (user == null){
             return ServerResponse.createByErrorMsg("找不到当前用户");

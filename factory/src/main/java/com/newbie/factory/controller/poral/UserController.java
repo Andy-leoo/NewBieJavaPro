@@ -1,7 +1,7 @@
 package com.newbie.factory.controller.poral;
 
 import com.newbie.factory.bean.User;
-import com.newbie.factory.bean.vo.UserVO;
+import com.newbie.factory.bean.vo.UserVo;
 import com.newbie.factory.common.Const;
 import com.newbie.factory.common.ResponseCode;
 import com.newbie.factory.common.ServerResponse;
@@ -64,7 +64,7 @@ public class UserController {
      * @desc 注册用户
      */
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
-    public ServerResponse<String> register(UserVO user){
+    public ServerResponse<String> register(UserVo user){
         return userService.register(user);
     }
 
@@ -149,7 +149,7 @@ public class UserController {
      * @desc 修改基本信息
      */
     @RequestMapping(value = "update_information" , method = RequestMethod.POST)
-    public ServerResponse<String> updateInformation(HttpSession session , UserVO userVO){
+    public ServerResponse<String> updateInformation(HttpSession session , UserVo userVO){
         User sessionUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (sessionUser == null){
             return ServerResponse.createByErrorMsg("用户未登入");
@@ -169,7 +169,7 @@ public class UserController {
      * @desc 获取用户基本信息
      */
     @RequestMapping(value = "get_information.do" , method = RequestMethod.POST)
-    public ServerResponse<UserVO> getInformation(HttpSession session){
+    public ServerResponse<UserVo> getInformation(HttpSession session){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){
             return ServerResponse.createByError(ResponseCode.NEED_LOGIN.getCode() , "未登入！");

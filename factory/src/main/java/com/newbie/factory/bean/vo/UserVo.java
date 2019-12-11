@@ -12,7 +12,7 @@ import java.util.Date;
  * @ USER VO类
  * @see com.newbie.factory.bean.vo <br>
  */
-public class UserVO {
+public class UserVo {
     private Long id;
 
     private String username;

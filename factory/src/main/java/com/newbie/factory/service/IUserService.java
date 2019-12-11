@@ -3,14 +3,14 @@ package com.newbie.factory.service;
 
 import com.github.pagehelper.PageInfo;
 import com.newbie.factory.bean.User;
-import com.newbie.factory.bean.vo.UserVO;
+import com.newbie.factory.bean.vo.UserVo;
 import com.newbie.factory.common.ServerResponse;
 
 public interface IUserService {
 
     ServerResponse<User> loginUser(String userName , String password);
 
-    ServerResponse<String> register(UserVO user);
+    ServerResponse<String> register(UserVo user);
 
     ServerResponse<String> checkValid(String str, String type);
 
@@ -22,9 +22,9 @@ public interface IUserService {
 
     ServerResponse<String> resetPassword(String passwordOld, String passwordNew, User user);
 
-    ServerResponse updateInformation(UserVO userVO);
+    ServerResponse updateInformation(UserVo userVO);
 
-    ServerResponse<UserVO> getInformation(Long id);
+    ServerResponse<UserVo> getInformation(Long id);
 
     ServerResponse<PageInfo<User>> userPageList(int page, int pageSize);
 
