@@ -5,6 +5,7 @@ import com.newbie.factory.common.ServerResponse;
 import com.newbie.factory.mapper.CategoryMapper;
 import com.newbie.factory.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Set;
  * @ 类别管理
  * @see com.newbie.factory.service.impl <br>
  */
+@Service
 public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired

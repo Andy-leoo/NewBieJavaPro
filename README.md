@@ -23,3 +23,4 @@ v2.0 会加入spring cloud 将v1.0改造。
         订单号生成规则，订单严谨性判断
         pojo与vo之间的实际操练
 14. Linux 安装部署软件（jdk mysql ftp ...）并发布。
+    http://learning.happymmall.com/  工具，linux

@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import java.util.Random;
  * @see com.newbie.factory.service.impl <br>
  */
 @Slf4j
+@Service
 public class OrderServiceImpl implements IOrderService {
 
     @Autowired

@@ -1,7 +1,6 @@
 package com.newbie.factory.mapper;
 
 import com.newbie.factory.bean.Cart;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,18 +17,17 @@ public interface CartMapper {
 
     int updateByPrimaryKey(Cart record);
 
-    Cart selectCartByUserIdAndProductId(@Param("userId") Long userId, @Param("productId") Integer productId);
+    List<Cart> selectCartByCheckAndUseId(Long userId);
+
+    Cart selectCartByUserIdAndProductId(Long userId, Integer productId);
+
+    void checkedOrUncheckedProduct(Long userId, Integer productId, int checked);
+
+    int selectCartProductCount(Long userId);
 
     List<Cart> selectCartByUserId(Long userId);
 
+    void deleteByProducts(Long userId, String productIds);
+
     int selectCartProductCheckedStatusByUserId(Long userId);
-
-    void deleteByProducts(@Param("userId") Long userId,@Param("productIds") String productIds);
-
-    void checkedOrUncheckedProduct(@Param("userId") Long userId, @Param("productId") Integer productId,@Param("checked") Integer checked);
-
-    // 使用函数计数  sum 如果返回空 ，使用 int 基本类型接不到值，要么使用integer接，要么再sql中处理
-    int selectCartProductCount(@Param("userId") Long userId);
-
-    List<Cart> selectCartByCheckAndUseId(Long userId);
 }
