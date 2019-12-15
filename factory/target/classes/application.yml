@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 # Mybatis相关配置
 mybatis:
   #核心配置文件路径
@@ -53,14 +53,20 @@ pagehelper:
 # 密码盐值
 passwordSalt: andysdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,
 #ftp前缀
+#ftp:
+#  user: andy-j
+#  password: andy-j
+#  server:
+#    ip: 127.0.0.1
+#    http:
+#      prefix: C:/ftpfile/img/
 ftp:
-  user: andy-j
-  password: andy-j
+  user: ftpuser
+  password: 123456
   server:
-    ip: 127.0.0.1
+    ip: 47.104.234.172
     http:
-      prefix: C:/ftpfile/img/
-
+      prefix: /home/vsftpusr
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::
 #                   支付宝配置

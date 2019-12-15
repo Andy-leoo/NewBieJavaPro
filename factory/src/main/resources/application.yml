@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 # Mybatis相关配置
 mybatis:
   #核心配置文件路径
